@@ -1,0 +1,32 @@
+﻿<UserControl xmlns:c1="http://schemas.componentone.com/winfx/2006/xaml"  x:Class="IrAnalyse.sub_isothermal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="490" d:DesignWidth="550" Loaded="UserControl_Loaded">
+    <Grid x:Name="main_grid" MouseDown="main_grid_MouseDown" MouseMove="main_grid_MouseMove">
+        <GroupBox Margin="10,5,10,0" VerticalAlignment="Top" Header="等温区设置" Height="429"></GroupBox>
+        
+        <StackPanel x:Name="left_panel">
+            
+            <Canvas x:Name="left_canvas">
+                <Image x:Name="leftimg" Width="30" Stretch="Fill" Height="335" Margin="120,40,0,0"></Image>
+                <c1:C1NumericBox x:Name="num_up" Height="20" Width="50" Format="N1" Increment="0.10" Opacity="0" PreviewMouseLeftButtonUp="num_MouseUp" KeyDown="num_KeyDown" />
+                <c1:C1NumericBox x:Name="num_down" Height="20" Width="50" Format="N1" Increment="0.10" Opacity="0" PreviewMouseLeftButtonUp="num_MouseUp" KeyDown="num_KeyDown" />
+            </Canvas>
+            <ComboBox  Height="23"  Name="iso_ComboBox" Width="181" Margin="100,25,0,0" VerticalAlignment="Top"></ComboBox>
+            <!--<c1:C1ComboBox Height="23"  Name="iso_ComboBox" Width="181" Margin="100,25,0,0" VerticalAlignment="Top" >
+               
+            </c1:C1ComboBox>-->
+        </StackPanel>
+        <StackPanel x:Name="right_panel" Margin="230,55,25,15" >
+            <ListBox x:Name="isothermal_list" Width="280">
+                
+            </ListBox>
+        </StackPanel>
+        <Button x:Name="isothermal_btn" Width="50" Height="25" Margin="440,438,0,27" Click="isothermal_btn_Click">确定</Button>
+        
+        
+    </Grid>
+</UserControl>

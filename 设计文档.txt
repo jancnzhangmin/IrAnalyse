@@ -1,0 +1,16 @@
+方法名称					类型					名称					参数及描述
+subwindow					StackPanel				弹窗（调用用户控件）	zindex[-1,3000] Opacity[0,1] subwindow_content.clear()清空控件 subwindow_content(用户控件存放区)
+sub_palette					用户控件				调色板					传参isactive load{设置当前选中项palette_type=sub_workspace.palette_type["iron",......]}
+sub_workspace				用户控件				工作区					cur_palette 存储调色板 is_reverse[false正常，true反转] 调色板反转 palette_name 调色板名称 b_value 亮度 c_value 对比度
+																	        ir_temp 温度值集合 temp_max_min_avr 最高温最低温平均温 [0]最高温[1]最高温坐标[2]最低温[3]最低温坐标[4]平均温 
+sub_report					用户控件				报告
+isactive					公共变量				当前活动窗口			isactive=sub_workspace.name
+sub_bc_adjust				用户控件				亮度/对比度调整			
+<ArrayList>draw_img			公共集合				几何图					点{point(类型)，name（名字），string(偏移10坐标)}
+																			直线{line(类型)，name（名字），string（偏移10开始坐标），string（结束X坐标）,string（结束Y坐标），string（游标），string..（像素坐标点）}
+																			折线{polyline（类型），name（名字）string（偏移10顶点坐标），'eof'（顶点坐标结束），string...（像素坐标点）}	
+																			圆{ellipse（类型），name（名字），string（偏移10中心点），string（x半径），string（y半径），string...（像素点）}
+																			矩形{rectangle(类型)，name（名字），string（偏移10开始坐标），string （宽），string （高），string...(像素点)}
+																			多边形{polygon(类型)，name（名字），string（偏移10顶点坐标），'eof'（顶点坐标结束）,string...(像素点)}
+																			默认最大矩形{work(类型)，name（名字），string（偏移10开始坐标），string （宽），string （高），string...(像素点)}
+sub_shapes_list			用户控件					图形信息集合			

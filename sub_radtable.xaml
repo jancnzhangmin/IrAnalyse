@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="IrAnalyse.sub_radtable"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+  
+        <Grid Margin="5">
+        <Label Margin="60,-5,130,270">温度单位： ℃</Label>
+            <StackPanel Margin="0,20,0,30">
+           
+            <DataGrid x:Name="rad_table" AutoGenerateColumns="False" Height="370" SelectionUnit="CellOrRowHeader">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="120"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Type" Binding="{Binding Path=Type}" Width="100"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Temperature1" Binding="{Binding Path=Temperature1}" Width="120"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Temperature2" Binding="{Binding Path=Temperature2}" Width="120"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Ems1" Binding="{Binding Path=Ems1}" Width="100"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Ems2" Binding="{Binding Path=Ems2}" Width="100"></DataGridTextColumn>
+                    <DataGridTextColumn Header="DefaultEms" Binding="{Binding Path=DefaultEms}" Width="100"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <Button Margin="640,400,10,0" Width="80" Height="23" BorderBrush="#FF109BF2" x:Name="rab_ems" Click="rab_ems_Click">确定</Button>
+    </Grid>
+</UserControl>

@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="IrAnalyse.sub_3D"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="576" d:DesignWidth="768" Loaded="UserControl_Loaded">
+    <Grid Width="768" Height="576"  x:Name="base_vp" PreviewMouseMove="Viewport3D_PreviewMouseMove" PreviewMouseDown="Viewport3D_PreviewMouseDown" PreviewMouseWheel="base_vp_PreviewMouseWheel">
+ 
+        <Viewport3D>
+            <Viewport3D.Camera>
+                <PerspectiveCamera x:Name="cam" Position="0,0,-280" LookDirection="0,0,0.1"  UpDirection="0,-1,0" FieldOfView="100" ></PerspectiveCamera>
+            </Viewport3D.Camera>
+                
+            <ModelVisual3D>
+      
+                <ModelVisual3D.Content>
+                    <Model3DGroup>
+                    <DirectionalLight Color="White" Direction="0,0,1000"></DirectionalLight>
+                        <DirectionalLight Color="White" Direction="192,0,1000"></DirectionalLight>
+                        <DirectionalLight Color="White" Direction="192,144,1000"></DirectionalLight>
+                        <DirectionalLight Color="White" Direction="0,144,1000"></DirectionalLight>
+                    </Model3DGroup>
+                </ModelVisual3D.Content>
+            </ModelVisual3D>
+            <ModelVisual3D>
+                <ModelVisual3D.Transform>
+                    <Transform3DGroup>
+                        <TranslateTransform3D OffsetX="-192" 
+                  OffsetY="-144" OffsetZ="0"/>
+                        <RotateTransform3D>
+                        <RotateTransform3D.Rotation>
+                            <AxisAngleRotation3D x:Name="rotationx" Axis=" 1 0 0" ></AxisAngleRotation3D>
+                        </RotateTransform3D.Rotation>
+                    </RotateTransform3D>
+
+                        <RotateTransform3D>
+                            <RotateTransform3D.Rotation>
+                                <AxisAngleRotation3D x:Name="rotationz" Axis=" 0 1 0" ></AxisAngleRotation3D>
+                            </RotateTransform3D.Rotation>
+                        </RotateTransform3D>
+
+
+
+                        <RotateTransform3D>
+                            <RotateTransform3D.Rotation>
+                                <AxisAngleRotation3D x:Name="rotationy" Axis=" 0 0 1"></AxisAngleRotation3D>
+                            </RotateTransform3D.Rotation>
+                        </RotateTransform3D>
+
+                    </Transform3DGroup>
+                </ModelVisual3D.Transform>
+                <ModelVisual3D.Content>
+                    
+                    <GeometryModel3D>
+                        
+                        <GeometryModel3D.Geometry>
+                            
+                            <MeshGeometry3D x:Name="mesh3d" ></MeshGeometry3D>
+                        </GeometryModel3D.Geometry>
+                        <GeometryModel3D.Material>
+                            
+                            <DiffuseMaterial>
+                                
+                                <DiffuseMaterial.Brush>
+   
+                                    <ImageBrush x:Name="mesh_img" />
+
+                                </DiffuseMaterial.Brush>
+                                
+                            </DiffuseMaterial>
+                        </GeometryModel3D.Material>
+                        <GeometryModel3D.BackMaterial>
+                            <DiffuseMaterial>
+                                <DiffuseMaterial.Brush>
+                                    <ImageBrush x:Name="back_brush"></ImageBrush>
+                                </DiffuseMaterial.Brush>
+                            </DiffuseMaterial>
+                        </GeometryModel3D.BackMaterial>
+                    </GeometryModel3D>
+                </ModelVisual3D.Content>
+            </ModelVisual3D>
+        </Viewport3D>
+        <Canvas Width="768" PreviewMouseUp="Canvas_PreviewMouseUp">
+            <Button Content="Y+" x:Name="Ya" Margin="35,0,0,0" PreviewMouseDown="Ya_PreviewMouseDown"></Button>
+            <Button Content="Y-" x:Name="Yd" Margin="35,50,0,0" PreviewMouseDown="Yd_PreviewMouseDown"></Button>
+            <Button Content="X-" x:Name="Xd" Margin="0,25,0,0" PreviewMouseDown="Xd_PreviewMouseDown"></Button>
+            <Button Content="X+" x:Name="Xa" Margin="75,25,0,0" PreviewMouseDown="Xa_PreviewMouseDown"></Button>
+            <Button Content="R-" x:Name="Rd" Margin="0,50,0,0" PreviewMouseDown="Rd_PreviewMouseDown"></Button>
+            <Button Content="R+" x:Name="Ra" Margin="75,50,0,0" PreviewMouseDown="Ra_PreviewMouseDown"></Button>
+            <Button Content="RESET" x:Name="rst" Margin="25,25,0,0" Click="rst_Click"></Button>
+            <Button Content="Z-" x:Name="Zd" Margin="0,0,0,0" PreviewMouseDown="Zd_PreviewMouseDown"></Button>
+            <Button Content="Z+" x:Name="Za" Margin="75,0,0,0" PreviewMouseDown="Za_PreviewMouseDown"></Button>
+            <Slider x:Name="ZIN"  Margin="0,80,0,0" Width="100" Ticks="0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9 2 2.2 2.4 " ValueChanged="ZIN_ValueChanged"></Slider>
+            <!--<Button Content="NW" x:Name="NW" Margin="650,0,0,0" Width="30"></Button>
+            <Button Content="N" x:Name="N" Margin="690,0,0,0" Width="30"></Button>
+            <Button Content="NE" x:Name="NE" Margin="730,0,0,0" Width="30" ></Button>
+            <Button Content="W" x:Name="W" Margin="650,25,0,0" Width="30" ></Button>
+            <Button Content="center" x:Name="cen" Margin="690,25,0,0" Width="30" ></Button>
+            <Button Content="E" x:Name="E" Margin="730,25,0,0" Width="30" ></Button>
+            <Button Content="SW" x:Name="SW" Margin="650,50,0,0" Width="30" ></Button>
+            <Button Content="S" x:Name="S" Margin="690,50,0,0" Width="30" ></Button>
+            <Button Content="SE" x:Name="SE" Margin="730,50,0,0" Width="30" ></Button>-->
+        </Canvas>
+    </Grid>
+</UserControl>

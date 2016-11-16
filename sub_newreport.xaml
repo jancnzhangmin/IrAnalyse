@@ -1,0 +1,12 @@
+﻿<UserControl xmlns:my1="clr-namespace:C1.WPF.RichTextBox;assembly=C1.WPF.RichTextBox.Toolbar.4"  xmlns:my="clr-namespace:C1.WPF.RichTextBox;assembly=C1.WPF.RichTextBox.4"  x:Class="IrAnalyse.sub_newreport"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+              d:DesignWidth="800">
+    <Grid Width="403" Height="369">
+        <my1:C1RichTextBoxToolbar />
+        <my:C1RichTextBox />
+    </Grid>
+</UserControl>

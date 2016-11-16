@@ -1,0 +1,433 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B8D1AF8C-D622-46BB-9CA1-EF712D4F898B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IrAnalyse</RootNamespace>
+    <AssemblyName>IrAnalyse</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Win32Resource>
+    </Win32Resource>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup>
+    <Reference Include="C1.WPF.4, Version=4.0.20151.455, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
+    <Reference Include="C1.WPF.Extended.4, Version=4.0.20151.455, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
+    <Reference Include="C1.WPF.ReportViewer.4, Version=4.0.20151.455, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
+    <Reference Include="C1.WPF.RichTextBox.4, Version=4.0.20151.455, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
+    <Reference Include="C1.WPF.RichTextBox.Toolbar.4, Version=4.0.20151.455, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
+    <Reference Include="C1.WPF.SpellChecker.4, Version=4.0.20151.455, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
+    <Reference Include="C1.WPF.Toolbar.4, Version=4.0.20151.455, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
+    <Reference Include="PlantVisualDataSet.Designer.cs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\jancn\Desktop\IrAnalyse\IrAnalyse\bin\Debug\PlantVisualDataSet.Designer.cs.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>C:\Users\jancn\Desktop\IrAnalyse\IrAnalyse\bin\Debug\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.resources">
+      <HintPath>C:\Users\jancn\Desktop\IrAnalyse\IrAnalyse\bin\Debug\Xceed.Wpf.AvalonDock.resources.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="C1RichTextBoxPaginator.cs" />
+    <Compile Include="Data.cs" />
+    <Compile Include="palette.xaml.cs">
+      <DependentUpon>palette.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PublicClass.cs" />
+    <Compile Include="sub_3D.xaml.cs">
+      <DependentUpon>sub_3D.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_about.xaml.cs">
+      <DependentUpon>sub_about.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_back_img.xaml.cs">
+      <DependentUpon>sub_back_img.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_bc_adjust.xaml.cs">
+      <DependentUpon>sub_bc_adjust.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_blend.xaml.cs">
+      <DependentUpon>sub_blend.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_dismap.xaml.cs">
+      <DependentUpon>sub_dismap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_ellipse_animation.xaml.cs">
+      <DependentUpon>sub_ellipse_animation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_gamut.xaml.cs">
+      <DependentUpon>sub_gamut.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_img.xaml.cs">
+      <DependentUpon>sub_img.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_isothermal.xaml.cs">
+      <DependentUpon>sub_isothermal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_newreport.xaml.cs">
+      <DependentUpon>sub_newreport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_newreport_ready.xaml.cs">
+      <DependentUpon>sub_newreport_ready.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_open.xaml.cs">
+      <DependentUpon>sub_open.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_palette.xaml.cs">
+      <DependentUpon>sub_palette.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_radtable.xaml.cs">
+      <DependentUpon>sub_radtable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_report.xaml.cs">
+      <DependentUpon>sub_report.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_repot_ready.xaml.cs">
+      <DependentUpon>sub_repot_ready.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_scale.xaml.cs">
+      <DependentUpon>sub_scale.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_shapes_list.xaml.cs">
+      <DependentUpon>sub_shapes_list.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_spot.xaml.cs">
+      <DependentUpon>sub_spot.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_temp.xaml.cs">
+      <DependentUpon>sub_temp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sub_workspace.xaml.cs">
+      <DependentUpon>sub_workspace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="workspace.xaml.cs">
+      <DependentUpon>workspace.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="palette.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sub_3D.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sub_about.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sub_back_img.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="sub_bc_adjust.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sub_blend.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="sub_dismap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="sub_ellipse_animation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sub_gamut.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sub_img.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sub_isothermal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sub_newreport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sub_newreport_ready.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sub_open.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="sub_palette.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sub_radtable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sub_report.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="sub_repot_ready.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="sub_scale.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="sub_shapes_list.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sub_spot.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="sub_temp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sub_workspace.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="workspace.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="palette\0_Iron.pal" />
+    <None Include="palette\1_Feather.pal" />
+    <None Include="palette\2_Gray.pal" />
+    <None Include="palette\3_NewRainbow.pal" />
+    <None Include="palette\4_Rainbow.pal" />
+    <None Include="palette\5_RedBrown.pal" />
+    <None Include="palette\6_Isothermal.pal" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="设计文档.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\textB.png" />
+    <Resource Include="images\textBullets.png" />
+    <Resource Include="images\textCenter.png" />
+    <Resource Include="images\textClearSytle.png" />
+    <Resource Include="images\textCopy.png" />
+    <Resource Include="images\textCut.png" />
+    <Resource Include="images\textDecrease.png" />
+    <Resource Include="images\textGrow.png" />
+    <Resource Include="images\textI.png" />
+    <Resource Include="images\textIncrease.png" />
+    <Resource Include="images\textJustify.png" />
+    <Resource Include="images\textLeft.png" />
+    <Resource Include="images\textNumbering.png" />
+    <Resource Include="images\textPaste.png" />
+    <Resource Include="images\textRedo.png" />
+    <Resource Include="images\textRight.png" />
+    <Resource Include="images\textShrink.png" />
+    <Resource Include="images\textU.png" />
+    <Resource Include="images\textUndo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\arr_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\arr_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="toolbar_img\adjust_active.png" />
+    <Resource Include="toolbar_img\adjust_back.png" />
+    <Resource Include="toolbar_img\cur_active.png" />
+    <Resource Include="toolbar_img\cur_back.png" />
+    <Resource Include="toolbar_img\ellipse_active.png" />
+    <Resource Include="toolbar_img\ellipse_back.png" />
+    <Resource Include="toolbar_img\line_active.png" />
+    <Resource Include="toolbar_img\line_back.png" />
+    <Resource Include="toolbar_img\point_active.png" />
+    <Resource Include="toolbar_img\point_back.png" />
+    <Resource Include="toolbar_img\pol_back.png" />
+    <Resource Include="toolbar_img\rectangle_back.png" />
+    <Resource Include="toolbar_img\temp_cur_active.png" />
+    <Resource Include="toolbar_img\temp_cur_back.png" />
+    <Resource Include="toolbar_img\temp_max_active.png" />
+    <Resource Include="toolbar_img\temp_max_back.png" />
+    <Resource Include="toolbar_img\temp_min_active.png" />
+    <Resource Include="toolbar_img\temp_min_back.png" />
+    <Resource Include="toolbar_img\zoom_in_active.png" />
+    <Resource Include="toolbar_img\zoom_in_back.png" />
+    <Resource Include="toolbar_img\zoom_out_active.png" />
+    <Resource Include="toolbar_img\zoom_out_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="toolbar_img\pol_active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="toolbar_img\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\titlebar_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="toolbar_img\bili_active.png" />
+    <Resource Include="toolbar_img\bili_back.png" />
+    <Resource Include="toolbar_img\fenbu_active.png" />
+    <Resource Include="toolbar_img\fenbu_back.png" />
+    <Resource Include="toolbar_img\redo_active.png" />
+    <Resource Include="toolbar_img\redo_back.png" />
+    <Resource Include="toolbar_img\save_active.png" />
+    <Resource Include="toolbar_img\save_back.png" />
+    <Resource Include="toolbar_img\undo_active.png" />
+    <Resource Include="toolbar_img\undo_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="toolbar_img\delete_active.png" />
+    <Resource Include="toolbar_img\delete_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="toolbar_img\rectangle_active.png" />
+    <Resource Include="toolbar_img\report_ready_active.png" />
+    <Resource Include="toolbar_img\report_ready_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="toolbar_img\open_active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="toolbar_img\new_report_active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\insert_img.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="toolbar_img\ronghe_active.png" />
+    <Resource Include="toolbar_img\ronghe_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="toolbar_img\sinoir.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="toolbar_img\bc_adjust_active.png" />
+    <Resource Include="toolbar_img\bc_adjust_back.png" />
+    <Resource Include="toolbar_img\isothermal_active.png" />
+    <Resource Include="toolbar_img\isothermal_back.png" />
+    <Resource Include="toolbar_img\palette_active.png" />
+    <Resource Include="toolbar_img\palette_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="toolbar_img\3d_active.png" />
+    <Resource Include="toolbar_img\3d_back.png" />
+    <Resource Include="toolbar_img\close_all.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

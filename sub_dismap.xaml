@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="IrAnalyse.sub_dismap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
+    <Grid>
+        <StackPanel Orientation="Horizontal" x:Name="basepanel2">
+            <StackPanel x:Name="leftpanel" Width="200" Orientation="Horizontal" ClipToBounds="True" Margin="0,-15,0,0" Height="300">
+                <TreeView x:Name="drawtree" Width="180" Margin="10,0,0,0">
+
+                    <TreeViewItem Header="线集合">
+
+                        <StackPanel x:Name="linepanel">
+                        </StackPanel>
+                    </TreeViewItem>
+                    <TreeViewItem Header="折线集合">
+
+                        <StackPanel x:Name="polylinepanel">
+
+                        </StackPanel>
+                    </TreeViewItem>
+                   
+                </TreeView>
+            </StackPanel>
+            <StackPanel x:Name="basepanel" Orientation="Horizontal" Height="360">
+                <Image Width="20" Source="/IrAnalyse;component/images/arr_left.png" x:Name="left_arr" MouseUp="left_arr_MouseUp"></Image>
+                <StackPanel  x:Name="report_panel" Orientation="Horizontal" Height="360">
+                <StackPanel>
+                    <Canvas x:Name="centercanvas" Width="700">
+                            <Canvas x:Name="center_border" Margin="50,0,0,0" Width="640" Height="350" ClipToBounds="True">
+                                <Canvas x:Name="center_img" Height="350" Width="690" Margin="-50,0,0,0"   PreviewMouseDown="center_img_PreviewMouseDown" PreviewMouseMove="center_img_PreviewMouseMove" PreviewMouseUp="center_img_PreviewMouseUp" Background="White"></Canvas>
+                            </Canvas>
+                            <Button Width="15" Height="15" Margin="34,312,0,0" x:Name="zoom_down" BorderThickness="0" Content="-" Padding="-3,-3,0,0" FontSize="14" Click="zoom_Click"></Button>
+                            <Button Width="15" Height="15" Margin="691,312,0,0" x:Name="zoom_up" BorderThickness="0" Content="+" Padding="-3,-3,0,0" FontSize="14" Click="zoom_Click"></Button>
+                            <Button Width="15" Height="15" Margin="50,312,0,0" x:Name="zoom_scroll" BorderThickness="0" FontSize="14"  Opacity="0" Focusable="False" PreviewMouseDown="zoom_scroll_PreviewMouseDown" PreviewMouseMove="zoom_scroll_PreviewMouseMove"></Button>
+                        </Canvas>
+                </StackPanel>
+
+                    <StackPanel x:Name="rightpanle" Width="230"  Margin="0,10,0,0">
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+      <Button Margin="0,340,270,0" Width="50" Height="26" x:Name="pre_report_dismap"  PreviewMouseDown="pre_report_dismap_PreviewMouseDown" PreviewMouseUp="pre_report_dismap_PreviewMouseUp" HorizontalAlignment="Right" ToolTip="报告准备">
+            <ContentControl>
+                <Image x:Name="repot_ready_img" Source="/IrAnalyse;component/toolbar_img/report_ready_active.png"></Image>
+            </ContentControl>
+        </Button>
+
+    </Grid>
+</UserControl>

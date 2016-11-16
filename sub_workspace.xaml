@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="IrAnalyse.sub_workspace"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+              Loaded="UserControl_Loaded" FlowDirection="LeftToRight" MouseMove="UserControl_MouseMove">
+    <ScrollViewer x:Name="scroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <ScrollViewer.Content>
+            <Grid>
+       
+                <Canvas x:Name="ir_canvas_base" MouseWheel="ir_canvas_MouseWheel">
+                    <Canvas x:Name="ir_canvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
+                        <Canvas x:Name="back_canvas" ClipToBounds="True">
+                        <Image x:Name="ir_back_img" Width="1024" Height="768" MouseDown="ir_canvas_font_MouseDown" MouseMove="ir_canvas_font_MouseMove" Stretch="Fill"></Image>
+                        </Canvas>
+                        <Canvas x:Name="ir_canvas_back" Width="384" Height="288" Opacity="0"></Canvas>
+                        <Canvas x:Name="ir_canvas_font" VerticalAlignment="Center" HorizontalAlignment="Center" MouseDown="ir_canvas_font_MouseDown" MouseMove="ir_canvas_font_MouseMove" MouseUp="ir_canvas_font_MouseUp" MouseLeave="ir_canvas_font_MouseLeave" ClipToBounds="True">
+                            <Image x:Name="irimg_back"></Image>
+                            <Image x:Name="irimg">
+                                <Image.Effect>
+                                    <DropShadowEffect Color="Black" BlurRadius="16" ShadowDepth="0" Opacity="0.5" />
+                                </Image.Effect>
+                            </Image>
+                        </Canvas>
+
+                        <StackPanel x:Name="right_panel">
+                            <Canvas x:Name="right_canvas">
+                                <Image x:Name="cur_palette_img" Width="30" Stretch="Fill" Margin="10,20,0,0">
+
+                                </Image>
+                            </Canvas>
+                        </StackPanel>
+                    </Canvas>
+                </Canvas>
+          
+    </Grid>
+        </ScrollViewer.Content>
+    </ScrollViewer>
+</UserControl>
