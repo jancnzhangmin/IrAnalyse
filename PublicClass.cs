@@ -29,6 +29,18 @@ namespace IrAnalyse
         public static string report_type="";
         public static bool open_newisothermal = false;
         public static List<int> list2 = new List<int>();
+        public static List<PublicClass.Iso_Shapes> Iso_Shapes_list = new List<PublicClass.Iso_Shapes>();
+        public class Iso_Shapes
+        {
+            public string shapes_name { get; set; }
+            public string workspace_name { get; set; }
+            public bool is_checked { get; set; }//是否选中
+            public double max_temp { get; set; }//最高温
+            public double min_temp { get; set; }//最低温
+            public string color { get; set; }//颜色
+            public bool is_opacity { get; set; }//是否透明
+            public List<int> pixel_coordinate = new List<int>();
+        }
 
         public struct shapes_property 
         {

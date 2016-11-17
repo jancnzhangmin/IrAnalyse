@@ -141,7 +141,7 @@ namespace IrAnalyse
         public Brush spot_max;//最高温的颜色
         public Brush spot_cen;//光标处的颜色
         public Brush spot_min;//最低温的颜色
-
+        
 
 
 
@@ -979,34 +979,72 @@ namespace IrAnalyse
         List<int> fillisopixel = new List<int>();
         public void filliso()
         {
-            int list2index = 0;
-            fillisopixel.Clear();
-            for (int y = 0; y < ir_height; y++)
+            if (PublicClass.list2.Count > 0)
             {
-                //pixels[y] = new Color[ir_width];
-                for (int x = 0; x < ir_width; x++)
+                int list2index = 0;
+                fillisopixel.Clear();
+                for (int y = 0; y < ir_height; y++)
                 {
-                    if ( y * ir_width + x == PublicClass.list2[list2index])
+                    //pixels[y] = new Color[ir_width];
+                    for (int x = 0; x < ir_width; x++)
                     {
-                        fillisopixel.Add(1);
-                        if (list2index < PublicClass.list2.Count-1)
+                        if (y * ir_width + x == PublicClass.list2[list2index])
                         {
-                            list2index++;
-                        }
-                        //if (PublicClass.list2.Count > 0)
-                        //{
+                            fillisopixel.Add(1);
+                            if (list2index < PublicClass.list2.Count - 1)
+                            {
+                                list2index++;
+                            }
+                            //if (PublicClass.list2.Count > 0)
+                            //{
                             //PublicClass.list2.RemoveAt(0);
-                        //}
-                    }
-                    else
-                    {
-                        fillisopixel.Add(0);
-                    }
+                            //}
+                        }
+                        else
+                        {
+                            fillisopixel.Add(0);
+                        }
 
+                    }
                 }
             }
         }
-        
+
+
+
+        private void change_iso_fill()//图形修改或删除后ISO填充处理
+        {
+            List<int> tem_fill_list = new List<int>();
+            for (int i = 0; i < fillisopixel.Count; i++)
+            {
+                tem_fill_list.Add(fillisopixel[i]);
+            }
+
+            List<int> list1 = new List<int>();
+
+
+                for (int i = 0; i < PublicClass.Iso_Shapes_list.Count; i++)
+                {
+                    if (PublicClass.Iso_Shapes_list[i].workspace_name == PublicClass.cur_ctrl_name)
+                    {
+                        list1.AddRange(PublicClass.Iso_Shapes_list[i].pixel_coordinate);
+                    }
+                }
+
+
+            //PublicClass.is_draw_type != "adjust"
+            //PublicClass.list2.AddRange(list1.Union(list1));
+                PublicClass.list2.Clear();
+            PublicClass.list2.AddRange(list1.Union(list1));
+            PublicClass.list2.Sort();
+            //fillisopixel.AddRange(list1.Union(list1));
+            filliso();
+            create_img();
+
+
+        }
+
+
         public void create_img() //生成图像
         {
             //if (PublicClass.list2.Count > 0)
@@ -1100,121 +1138,131 @@ namespace IrAnalyse
                         //color_rgb[1] = Convert.ToByte(cur_palette[(int)color_value].ToString().Substring(2, 2));
                         //color_rgb[2] = Convert.ToByte(cur_palette[(int)color_value].ToString().Substring(4, 2));
                         pixels[y * ir_width + x] = Convert.ToInt32(temp_palette[(int)color_value].ToString(), 16);
-
-                        if (isothermal_list.Count > 0)
+                        var Iso_Shapes_lists = from c in PublicClass.Iso_Shapes_list where c.workspace_name == PublicClass.cur_ctrl_name select c;
+                        if (Iso_Shapes_lists.Count()>0)
                         {
-                            for (int i = 0; i < 16; i++)
+                            
+                                foreach( var Iso_Shapes_list in Iso_Shapes_lists)
                             {
-                                PublicClass.isothermal_property newiso = (PublicClass.isothermal_property)isothermal_list[i];
-                                if (newiso.is_checked)
+                                for (int i = 0; i < 16; i++)
                                 {
-                                    if ((double)ir_temp[y * ir_width + x] / 10 > newiso.min_temp && (double)ir_temp[y * ir_width + x] / 10 <= newiso.max_temp && fillisopixel[y * ir_width + x]==1)
+                                    PublicClass.isothermal_property newiso = (PublicClass.isothermal_property)isothermal_list[i];
+                                    if (newiso.is_checked)
                                     {
-
-
-                                        if (newiso.is_opacity)
+                                        if ((double)ir_temp[y * ir_width + x] / 10 > newiso.min_temp && (double)ir_temp[y * ir_width + x] / 10 <= newiso.max_temp && fillisopixel[y * ir_width + x] == 1)
                                         {
 
-                                            //Y'= 0.299*R' + 0.587*G' + 0.114*B'
-                                            //U'= -0.147*R' - 0.289*G' + 0.436*B' = 0.492*(B'- Y')
-                                            //V'= 0.615*R' - 0.515*G' - 0.100*B' = 0.877*(R'- Y')
-                                            //R' = Y' + 1.140*V'
-                                            //G' = Y' - 0.394*U' - 0.581*V'
-                                            //B' = Y' + 2.032*U'
-                                            double cur_temp = (double)ir_temp[y * ir_width + x] / 10;
-
-                                            double R = Convert.ToInt32(newiso.color.Substring(0, 2), 16);
-                                            double G = Convert.ToInt32(newiso.color.Substring(2, 2), 16);
-                                            double B = Convert.ToInt32(newiso.color.Substring(4, 2), 16);
-
-                                            double Y = 0.299 * R + 0.587 * G + 0.114 * B;
-                                            double U = 0.492 * (B - Y);
-                                            double V = 0.877 * (R - Y);
-
-                                            Y = (1 - (newiso.max_temp - cur_temp) / (newiso.max_temp - newiso.min_temp)) * (255 - Y) + Y;
-
-                                            R = Y + 1.14 * V;
-                                            G = Y - 0.394 * U - 0.581 * V;
-                                            B = Y + 2.032 * U;
-
-                                            if (R > 255)
-                                            {
-                                                R = 255;
-                                            }
-                                            if (R < 0)
-                                            {
-                                                R = 0;
-                                            }
-                                            if (G > 255)
-                                            {
-                                                G = 255;
-                                            }
-                                            if (G < 0)
-                                            {
-                                                G = 0;
-                                            }
-                                            if (B > 255)
-                                            {
-                                                B = 255;
-                                            }
-                                            if (B < 0)
-                                            {
-                                                B = 0;
-                                            }
-
-                                            string R_str = Convert.ToString((int)R, 16).ToString();
-                                            if (R_str.Length == 1)
-                                            {
-                                                R_str = "0" + R_str;
-                                            }
-                                            string G_str = Convert.ToString((int)G, 16).ToString();
-                                            if (G_str.Length == 1)
-                                            {
-                                                G_str = "0" + G_str;
-                                            }
-                                            string B_str = Convert.ToString((int)B, 16).ToString();
-                                            if (B_str.Length == 1)
-                                            {
-                                                B_str = "0" + B_str;
-                                            }
-
-                                            pixels[y * ir_width + x] = Convert.ToInt32(R_str + G_str + B_str, 16);
-
-                                        }
-                                        else
-                                        {
-                                            //pixels[y * ir_width + x] = Convert.ToInt32(newiso.color, 16);
-
-                                            if (fillisopixel[y * ir_width + x] == 1)
-                                            {
-                                                pixels[y * ir_width + x] = Convert.ToInt32(newiso.color, 16);
-                                            }
                                             
+                                            if (newiso.is_opacity)
+                                            {
 
-                                            //int a = pixels[y * ir_width + x];
-                                            //int b = Convert.ToInt32(newiso.color, 16);
+                                                //Y'= 0.299*R' + 0.587*G' + 0.114*B'
+                                                //U'= -0.147*R' - 0.289*G' + 0.436*B' = 0.492*(B'- Y')
+                                                //V'= 0.615*R' - 0.515*G' - 0.100*B' = 0.877*(R'- Y')
+                                                //R' = Y' + 1.140*V'
+                                                //G' = Y' - 0.394*U' - 0.581*V'
+                                                //B' = Y' + 2.032*U'
+                                                double cur_temp = (double)ir_temp[y * ir_width + x] / 10;
+
+                                                double R = Convert.ToInt32(newiso.color.Substring(0, 2), 16);
+                                                double G = Convert.ToInt32(newiso.color.Substring(2, 2), 16);
+                                                double B = Convert.ToInt32(newiso.color.Substring(4, 2), 16);
+
+                                                double Y = 0.299 * R + 0.587 * G + 0.114 * B;
+                                                double U = 0.492 * (B - Y);
+                                                double V = 0.877 * (R - Y);
+
+                                                Y = (1 - (Iso_Shapes_list.max_temp - cur_temp) / (Iso_Shapes_list.max_temp - Iso_Shapes_list.min_temp)) * (255 - Y) + Y;
+
+                                                R = Y + 1.14 * V;
+                                                G = Y - 0.394 * U - 0.581 * V;
+                                                B = Y + 2.032 * U;
+
+                                                if (R > 255)
+                                                {
+                                                    R = 255;
+                                                }
+                                                if (R < 0)
+                                                {
+                                                    R = 0;
+                                                }
+                                                if (G > 255)
+                                                {
+                                                    G = 255;
+                                                }
+                                                if (G < 0)
+                                                {
+                                                    G = 0;
+                                                }
+                                                if (B > 255)
+                                                {
+                                                    B = 255;
+                                                }
+                                                if (B < 0)
+                                                {
+                                                    B = 0;
+                                                }
+
+                                                string R_str = Convert.ToString((int)R, 16).ToString();
+                                                if (R_str.Length == 1)
+                                                {
+                                                    R_str = "0" + R_str;
+                                                }
+                                                string G_str = Convert.ToString((int)G, 16).ToString();
+                                                if (G_str.Length == 1)
+                                                {
+                                                    G_str = "0" + G_str;
+                                                }
+                                                string B_str = Convert.ToString((int)B, 16).ToString();
+                                                if (B_str.Length == 1)
+                                                {
+                                                    B_str = "0" + B_str;
+                                                }
+
+                                                pixels[y * ir_width + x] = Convert.ToInt32(R_str + G_str + B_str, 16);
+
+                                            }
+                                            else
+                                            {
+                                                //pixels[y * ir_width + x] = Convert.ToInt32(newiso.color, 16);
+
+                                                if (fillisopixel[y * ir_width + x] == 1)
+                                                {
+                                                    pixels[y * ir_width + x] = Convert.ToInt32(newiso.color, 16);
+                                                }
+
+                                                //for (int v = 0; v < Iso_Shapes_list.pixel_coordinate.Count; v++)
+                                                //{
+                                                //    pixels[Iso_Shapes_list.pixel_coordinate[v]] = Convert.ToInt32(newiso.color, 16);
+                                                //}
 
 
-                                            //for (int j = 0; j < PublicClass.shapes_count.Count; j++)
-                                            //{
-                                            //    PublicClass.shapes_property newshapes = (PublicClass.shapes_property)PublicClass.shapes_count[j];
-                                            //    if (newshapes.shapes_name == "C1")
-                                            //    {
-                                            //        int[] xiangshu = new int[ir_width * ir_height];
-                                            //        pixels[y * ir_width + x] = Convert.ToInt32(newiso.color, 16);
-                                            //    }
+                                                //int a = pixels[y * ir_width + x];
+                                                //int b = Convert.ToInt32(newiso.color, 16);
 
-                                            //}
+
+                                                //for (int j = 0; j < PublicClass.shapes_count.Count; j++)
+                                                //{
+                                                //    PublicClass.shapes_property newshapes = (PublicClass.shapes_property)PublicClass.shapes_count[j];
+                                                //    if (newshapes.shapes_name == "C1")
+                                                //    {
+                                                //        int[] xiangshu = new int[ir_width * ir_height];
+                                                //        pixels[y * ir_width + x] = Convert.ToInt32(newiso.color, 16);
+                                                //    }
+
+                                                //}
+
+
+                                            }
+
+
 
 
                                         }
-
-
-
-
                                     }
                                 }
                             }
+                            //isoend
                         }
 
                         //ir_bmp.WritePixels(new Int32Rect(x, y, 1, 1), pixels, stride, 0);
@@ -4257,6 +4305,27 @@ private void create_shapes_property(List<string> pixel_coordinate) //创建结�
                     }
                 }
                 PublicClass.shapes_count[i] = newshapes;
+
+                //////////ISO调整/////////
+                var iso_shapes = from c in PublicClass.Iso_Shapes_list where c.workspace_name == PublicClass.cur_ctrl_name && c.shapes_name == shapes_name select c;
+                //if (iso_shapes.Count() > 0)
+                //{
+                //    iso_shapes.First().pixel_coordinate.Clear();
+                //    iso_shapes.First().pixel_coordinate.AddRange(newshapes.pixel_coordinate);
+                //    change_iso_fill();
+                //}
+                foreach (var myshapes in iso_shapes)
+                {
+                    if (myshapes.shapes_name == shapes_name)
+                    {
+                        myshapes.pixel_coordinate.Clear();
+                        myshapes.pixel_coordinate.AddRange(newshapes.pixel_coordinate);
+                    }
+                }
+                change_iso_fill();
+                ////////ISO调整END///////
+
+
                 if (newshapes.shapes_type != "work" && newshapes.shapes_type != "spot" && newshapes.shapes_type != "area" && newshapes.shapes_type != "min_temp" && newshapes.shapes_type != "max_temp")
                 {
                     histroy_shapes_count.Add(newshapes);

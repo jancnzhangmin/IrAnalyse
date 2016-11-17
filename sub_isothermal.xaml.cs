@@ -117,12 +117,26 @@ namespace IrAnalyse
         {
            // List<int> list2 = new List<int>();
             List<int> list1 = new List<int>();
-            list1.Clear();
+            //list1.Clear();
+            sub_workspace workspace = MainWindow.FindChild<sub_workspace>(Application.Current.MainWindow, PublicClass.cur_ctrl_name);
             CheckBox newcheckbox = sender as CheckBox;
+
+            PublicClass.Iso_Shapes_list.Clear();
+            for (int i = 0; i < PublicClass.Iso_Shapes_list.Count; i++)
+            {
+                if (PublicClass.Iso_Shapes_list[i].workspace_name == PublicClass.cur_ctrl_name)
+                {
+                    PublicClass.Iso_Shapes_list.RemoveAt(i);
+                    i--;
+                }
+            }
+            
+
 
             foreach (var c in iso_ComboBox.Items)
             {
                 CheckBox newch = c as CheckBox;
+                
                 if (newch != null)
                 {
 
@@ -135,11 +149,16 @@ namespace IrAnalyse
                             PublicClass.shapes_property newshapes = (PublicClass.shapes_property)PublicClass.shapes_count[i];
                             if (newch.Name.ToString() == newshapes.shapes_name && newshapes.workspace_name==PublicClass.cur_ctrl_name)
                             {
-
-
                                 list1.AddRange(newshapes.pixel_coordinate);
-
+                                PublicClass.Iso_Shapes new_iso_shapes = new PublicClass.Iso_Shapes();
+                                new_iso_shapes.shapes_name = newshapes.shapes_name;
+                                new_iso_shapes.workspace_name = newshapes.workspace_name;
+                                new_iso_shapes.max_temp = workspace.grad_max / 10.0;
+                                new_iso_shapes.min_temp = workspace.grad_min / 10.0;
+                                new_iso_shapes.pixel_coordinate.AddRange(newshapes.pixel_coordinate);
+                                PublicClass.Iso_Shapes_list.Add(new_iso_shapes);
                             }
+                            
 
 
                         }
@@ -151,10 +170,11 @@ namespace IrAnalyse
 
             }
             PublicClass.list2.Clear();
-           PublicClass.list2.AddRange( list1.Union(list1));
-           PublicClass.list2.Sort();
-           sub_workspace workspace = MainWindow.FindChild<sub_workspace>(Application.Current.MainWindow, PublicClass.cur_ctrl_name);
-           workspace.filliso();
+            PublicClass.list2.AddRange(list1.Union(list1));
+            PublicClass.list2.Sort();
+
+            workspace.filliso();
+            workspace.create_img();
 
         }
      
@@ -579,6 +599,10 @@ namespace IrAnalyse
             {
                 int control_name = int.Parse(newcheckbox.Name.ToString().Substring(10, newcheckbox.Name.ToString().Length - 10)) - 1;
                 PublicClass.isothermal_property newiso = (PublicClass.isothermal_property)workspace.isothermal_list[control_name];
+                /////ISO//////
+                var isolist = from c in PublicClass.Iso_Shapes_list where c.shapes_name == workspace.shapes_name && c.workspace_name == PublicClass.cur_ctrl_name select c;
+                /////ISOEND///
+
                 if ((bool)newcheckbox.IsChecked)
                 {
                     
@@ -588,7 +612,16 @@ namespace IrAnalyse
                 {
                     newiso.is_opacity = false;
                 }
+
+                if (isolist.Count() > 0)
+                {
+                    isolist.First().is_opacity = newiso.is_opacity;
+                }
+                ///ISO//////
+                ///ISOEND///
+
                 workspace.isothermal_list[control_name] = newiso;
+                
             }
             workspace.create_img();
         }
