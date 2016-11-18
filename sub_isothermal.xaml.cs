@@ -63,6 +63,45 @@ namespace IrAnalyse
                 old_iso.min_temp = work_iso.min_temp;
                 old_isothermal.Add(old_iso);
 
+                //System.Windows.Forms.Application.DoEvents();
+                //StackPanel temstack = isothermal_list.FindName("stackpanel" + i) as StackPanel;
+                //if (temstack != null)
+                //{
+
+
+                    //int step = 0;
+                    //foreach (var c in temstack.Children)
+                    //{
+                    //    CheckBox tembox = c as CheckBox;
+                    //    if (tembox != null)
+                    //    {
+                    //        if (step == 0 &&work_iso.is_checked)
+                    //        {
+                    //            tembox.IsChecked = true;
+                    //            step++;
+                    //        }
+                    //        else if (step == 1 && work_iso.is_opacity)
+                    //        {
+                    //            tembox.IsChecked = true;
+                    //            break;
+                    //        }
+                    //    }
+                    //}
+
+
+                    //CheckBox temselect = temstack.FindName("isselected" + i) as CheckBox;
+                    //if (work_iso.is_checked)
+                    //{
+                    //    temselect.IsChecked = true;
+                    //}
+                    //CheckBox temopacity = temstack.FindName("is_opacity" + i) as CheckBox;
+                    //if (work_iso.is_opacity)
+                    //{
+                    //    temopacity.IsChecked = true;
+                    //}
+                //}
+
+
                     
             }
             iso_combox();
@@ -81,6 +120,11 @@ namespace IrAnalyse
                 if (newshapes.shapes_name != "max_temp" && newshapes.shapes_name != "min_temp" &&PublicClass.cur_ctrl_name ==newshapes.workspace_name)
                 {
                     CheckBox newcheckbox = new CheckBox();
+                    var select_cbx = from c in PublicClass.Iso_Shapes_list where c.shapes_name == newshapes.shapes_name && c.workspace_name == PublicClass.cur_ctrl_name select c;
+                    if (select_cbx.Count() > 0)
+                    {
+                        newcheckbox.IsChecked = true;
+                    }
                     newcheckbox.Name = newshapes.shapes_name;
                     newcheckbox.Content = newshapes.shapes_name;
                     if (cbx_index == 0)
@@ -199,6 +243,10 @@ namespace IrAnalyse
                         if (isselected != null)
                         {
                             if (isselected.Name == "isselected" + (i + 1))
+                            {
+                                isselected.IsChecked = true;
+                            }
+                            if (isselected.Name == "is_opacity" + (i + 1) && newiso.is_opacity)
                             {
                                 isselected.IsChecked = true;
                             }
@@ -517,7 +565,7 @@ namespace IrAnalyse
                 //newcheckbox.Margin = new Thickness(15, 0, 0, 0);
                 isselected.Click += new RoutedEventHandler(isselected_Click);
                 newstackpanel.Children.Add(isselected);
-                
+                //newstackpanel.RegisterName("isselected" + i, isselected);
                 
 
 
@@ -530,6 +578,7 @@ namespace IrAnalyse
                 
                 isopacity.Click += new RoutedEventHandler(isopacity_Click);
                 newstackpanel.Children.Add(isopacity);
+                //newstackpanel.RegisterName(isopacity.Name, isopacity);
 
 
 

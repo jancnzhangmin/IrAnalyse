@@ -26,7 +26,6 @@
             </ListBox>
         </StackPanel>
         <Button x:Name="isothermal_btn" Width="50" Height="25" Margin="440,438,0,27" Click="isothermal_btn_Click">确定</Button>
-        
-        
+        <Border BorderBrush="Silver" BorderThickness="1" Height="100" HorizontalAlignment="Left" Margin="682,183,0,0" Name="border1" VerticalAlignment="Top" Width="200" />
     </Grid>
 </UserControl>
