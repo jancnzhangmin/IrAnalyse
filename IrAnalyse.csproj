@@ -56,6 +56,18 @@
     <Reference Include="C1.WPF.RichTextBox.Toolbar.4, Version=4.0.20151.455, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
     <Reference Include="C1.WPF.SpellChecker.4, Version=4.0.20151.455, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
     <Reference Include="C1.WPF.Toolbar.4, Version=4.0.20151.455, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
+    <Reference Include="Emgu.CV">
+      <HintPath>C:\Emgu\emgucv-windows-universal 3.0.0.2157\bin\Emgu.CV.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.ML">
+      <HintPath>C:\Emgu\emgucv-windows-universal 3.0.0.2157\bin\Emgu.CV.ML.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.UI">
+      <HintPath>C:\Emgu\emgucv-windows-universal 3.0.0.2157\bin\Emgu.CV.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.Util">
+      <HintPath>C:\Emgu\emgucv-windows-universal 3.0.0.2157\bin\Emgu.Util.dll</HintPath>
+    </Reference>
     <Reference Include="PlantVisualDataSet.Designer.cs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\jancn\Desktop\IrAnalyse\IrAnalyse\bin\Debug\PlantVisualDataSet.Designer.cs.dll</HintPath>
@@ -75,11 +87,15 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="Xceed.Wpf.AvalonDock">
       <HintPath>C:\Users\jancn\Desktop\IrAnalyse\IrAnalyse\bin\Debug\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock.resources">
       <HintPath>C:\Users\jancn\Desktop\IrAnalyse\IrAnalyse\bin\Debug\Xceed.Wpf.AvalonDock.resources.dll</HintPath>
+    </Reference>
+    <Reference Include="ZedGraph">
+      <HintPath>C:\Emgu\emgucv-windows-universal 3.0.0.2157\bin\ZedGraph.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -421,6 +437,16 @@
     <Resource Include="toolbar_img\3d_active.png" />
     <Resource Include="toolbar_img\3d_back.png" />
     <Resource Include="toolbar_img\close_all.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="toolbar_img\sharpen_active.png" />
+    <Resource Include="toolbar_img\sharpen_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="toolbar_img\blur_active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="toolbar_img\blur_back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

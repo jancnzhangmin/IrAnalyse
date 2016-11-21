@@ -19,6 +19,9 @@ using System.Timers;
 using System.Windows.Media.Animation;
 using System.ComponentModel;
 using System.Threading;
+using System.Runtime.InteropServices;
+
+
 
 namespace IrAnalyse
 {
@@ -89,8 +92,8 @@ namespace IrAnalyse
         public ArrayList draw_img { get; set; }//几何图
         public string shapes_name { get; set; }//几何名称
         public string shapes_active { get; set; }//当前选中几何图形
-        public PointCollection collection = new PointCollection();//点集合
-        public PointCollection collection_ing = new PointCollection();//实时点集合
+        public System.Windows.Media.PointCollection collection = new System.Windows.Media.PointCollection();//点集合
+        public System.Windows.Media.PointCollection collection_ing = new System.Windows.Media.PointCollection();//实时点集合
         public bool is_collection = false;//判断是否正在画线
         public bool doubleclick = false;//是否双击
         public string cur_file_name { get; set; }//打开的图片名称
@@ -141,7 +144,9 @@ namespace IrAnalyse
         public Brush spot_max;//最高温的颜色
         public Brush spot_cen;//光标处的颜色
         public Brush spot_min;//最低温的颜色
-        
+
+        public bool sharpen = false;//锐化
+        public bool blur = false;//平滑
 
 
 
@@ -1273,7 +1278,34 @@ namespace IrAnalyse
                 }
             ir_bmp.WritePixels(new Int32Rect(0, 0, ir_width, ir_height), pixels, stride*ir_width, 0);
             ir_bmp.Unlock();
-           irimg.Source = ir_bmp;
+           //irimg.Source = ir_bmp;
+
+            /////emgucv////////
+            BitmapSource bitmap=(BitmapSource)ir_bmp;
+             MemoryStream outStream = new MemoryStream();  
+    BitmapEncoder enc = new BmpBitmapEncoder();
+    enc.Frames.Add(BitmapFrame.Create(bitmap));
+    enc.Save(outStream);
+    System.Drawing.Bitmap Bmp = new System.Drawing.Bitmap(outStream);  
+    //Emgu.CV.Image<Bgr, Byte> emgu = new Image<Bgr, Byte>(480, 320, new Bgr(255, 0, 0));
+    Emgu.CV.Image<Emgu.CV.Structure.Bgr, byte> emgu = new Emgu.CV.Image<Emgu.CV.Structure.Bgr, byte>(Bmp);
+    if (sharpen)
+    {
+        float[, ,] k = new float[,,] { { { 0 }, { -1 }, { 0 } }, { { -1 }, { 5 }, { -1 } }, { { 0 }, { -1 }, { 0 } } };
+        Emgu.CV.Image<Emgu.CV.Structure.Gray, float> kenrel = new Emgu.CV.Image<Emgu.CV.Structure.Gray, float>(k);
+        Emgu.CV.CvInvoke.Filter2D(emgu, emgu, kenrel, new System.Drawing.Point(-1, -1));
+        emgu = emgu.Convert<Emgu.CV.Structure.Bgr, byte>();
+    }
+    if (blur)
+    {
+        emgu = emgu.SmoothMedian(3);
+    }
+    irimg.Source = BitmapSourceConvert.ToBitmapSource(emgu);
+
+
+
+            ////evgucvEND/////
+
            creat_color_lable();
 
 
@@ -1408,6 +1440,109 @@ namespace IrAnalyse
 
         }
 
+
+        bool cal_sharpen(Emgu.CV.Mat inImg, Emgu.CV.Mat outImg)
+        {
+            int nchannel = inImg.NumberOfChannels;
+            int nrows = inImg.Rows;
+            int ncols = inImg.Cols;
+            if (nchannel == 1)
+            {
+                var tempImg = inImg.ToImage<Emgu.CV.Structure.Gray, byte>();
+                var tempImg2 = tempImg.Clone();
+                for (int i = 1; i < nrows - 1; ++i)
+                {
+                    for (int j = 1; j < ncols - 1; ++j)
+                    {
+                        tempImg2.Data[i, j, 0] = saturateCast(5 * tempImg.Data[i, j, 0] - tempImg.Data[i - 1, j, 0] - tempImg.Data[i, j - 1, 0] -
+                        tempImg2.Data[i + 1, j, 0] - tempImg.Data[i, j + 1, 0]);
+                    }
+                }
+                for (int i = 0; i < nrows; ++i)
+                {
+                    tempImg2.Data[i, 0, 0] = 0;
+                    tempImg2.Data[i, ncols - 1, 0] = 0;
+                }
+                for (int j = 0; j < ncols; ++j)
+                {
+                    tempImg2.Data[0, j, 0] = 0;
+                    tempImg2.Data[nrows - 1, j, 0] = 0;
+                }
+                tempImg2.Mat.CopyTo(outImg);
+            }
+            else if (nchannel == 3)
+            {
+                var tempImg = inImg.ToImage<Emgu.CV.Structure.Bgr, byte>();
+                var tempImg2 = tempImg.Clone();
+                for (int i = 1; i < nrows - 1; ++i)
+                {
+                    for (int j = 1; j < ncols - 1; ++j)
+                    {
+                        for (int channel = 0; channel < 3; channel++)
+                        {
+                            tempImg2.Data[i, j, channel] = saturateCast(5 * tempImg.Data[i, j, channel] - tempImg.Data[i - 1, j, channel] - tempImg.Data[i, j - 1, channel] -
+                                tempImg.Data[i + 1, j, channel] - tempImg.Data[i, j + 1, channel]);
+                        }
+                    }
+                }
+                for (int i = 0; i < nrows; ++i)
+                {
+                    for (int channel = 0; channel < 3; channel++)
+                    {
+                        tempImg2.Data[i, 0, channel] = 0;
+                        tempImg2.Data[i, ncols - 1, channel] = 0;
+                    }
+                }
+                for (int j = 0; j < ncols; ++j)
+                {
+                    for (int channel = 0; channel < 3; channel++)
+                    {
+                        tempImg2.Data[0, j, channel] = 0;
+                        tempImg2.Data[nrows - 1, j, channel] = 0;
+                    }
+                }
+                tempImg2.Mat.CopyTo(outImg);
+            }
+            else
+            {
+                return false;
+            }
+            return true;
+        }
+
+        byte saturateCast(double inValue)
+        {
+            if (inValue < 0)
+                return 0;
+            else if (inValue > 255)
+                return 255;
+            else
+                return (byte)inValue;
+        } 
+
+
+        public static class BitmapSourceConvert
+        {
+            [DllImport("gdi32")]
+            private static extern int DeleteObject(IntPtr o);
+
+            public static BitmapSource ToBitmapSource(Emgu.CV.IImage image)
+            {
+                using (System.Drawing.Bitmap source = image.Bitmap)
+                {
+                    IntPtr ptr = source.GetHbitmap();
+
+                    BitmapSource bs = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                        ptr,
+                        IntPtr.Zero,
+                        Int32Rect.Empty,
+                        System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+
+                    DeleteObject(ptr);
+                    return bs;
+                }
+            }
+        }
 
         public void grad_max_min()
         {
@@ -1593,6 +1728,7 @@ namespace IrAnalyse
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+
             PublicClass.cur_ctrl_name = this.Name;
             if (palette_name == null)
             {
@@ -1675,6 +1811,10 @@ namespace IrAnalyse
             args.RoutedEvent = sub_workspace.LoadIrInformationEvent;
             this.RaiseEvent(args);
             is_mousedown = false;
+
+
+
+
         }
 
         public void modifytemp(bool rept)

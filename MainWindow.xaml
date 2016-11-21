@@ -262,6 +262,18 @@
                    
                 </Button>-->
             </ToolBar>
+            <ToolBar>
+                <ToggleButton Height="23" Name="sharpen" Width="23"  ToolTip="锐化" Click="sharpen_Click">
+                    <ContentControl>
+                        <Image x:Name="sharpen_img" Source="/IrAnalyse;component/toolbar_img/sharpen_back.png"></Image>
+                    </ContentControl>
+                </ToggleButton>
+                <ToggleButton Height="23" Name="blur" Width="23"  ToolTip="平滑" Click="blur_Click">
+                    <ContentControl>
+                        <Image x:Name="blur_img" Source="/IrAnalyse;component/toolbar_img/blur_back.png"></Image>
+                    </ContentControl>
+                </ToggleButton>
+            </ToolBar>
 
             <!--<ToolBar Height="26"  Name="toolBar4" VerticalAlignment="Top" AllowDrop="True">
                 <ToggleButton Height="23" Name="ronghe_btn" Width="23" ToolTip="融合" Click="ronghe_btn_Click">

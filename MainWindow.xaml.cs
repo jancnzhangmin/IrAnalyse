@@ -65,6 +65,11 @@ namespace IrAnalyse
         public bool is_visible = false;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
+
+
+
+
             newtime.Elapsed += new System.Timers.ElapsedEventHandler(newtime_Elapsed);
             //tool1.DockAsDocument();
             init_toolbar();
@@ -4720,6 +4725,42 @@ namespace IrAnalyse
             subwindow.Opacity = 0.9;
             Panel.SetZIndex(submainwindow, 3000);
         }
+
+        private void sharpen_Click(object sender, RoutedEventArgs e)
+        {
+            sub_workspace workspace = MainWindow.FindChild<sub_workspace>(Application.Current.MainWindow, PublicClass.cur_ctrl_name);
+
+            if ((bool)sharpen.IsChecked)
+            {
+                workspace.sharpen = true;
+                sharpen_img.Source = new BitmapImage(new Uri(@"toolbar_img\sharpen_active.png", UriKind.Relative));
+            }
+            else
+            {
+                workspace.sharpen = false;
+                sharpen_img.Source = new BitmapImage(new Uri(@"toolbar_img\sharpen_back.png", UriKind.Relative));
+            }
+            workspace.create_img();
+        }
+
+        private void blur_Click(object sender, RoutedEventArgs e)
+        {
+            sub_workspace workspace = MainWindow.FindChild<sub_workspace>(Application.Current.MainWindow, PublicClass.cur_ctrl_name);
+
+            if ((bool)blur.IsChecked)
+            {
+                workspace.blur = true;
+                blur_img.Source = new BitmapImage(new Uri(@"toolbar_img\blur_active.png", UriKind.Relative));
+            }
+            else
+            {
+                workspace.blur = false;
+                blur_img.Source = new BitmapImage(new Uri(@"toolbar_img\blur_back.png", UriKind.Relative));
+            }
+            workspace.create_img();
+        }
+
+
 
  
 
