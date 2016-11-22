@@ -109,6 +109,9 @@
       <DependentUpon>palette.xaml</DependentUpon>
     </Compile>
     <Compile Include="PublicClass.cs" />
+    <Compile Include="recordtest.xaml.cs">
+      <DependentUpon>recordtest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="sub_3D.xaml.cs">
       <DependentUpon>sub_3D.xaml</DependentUpon>
     </Compile>
@@ -191,6 +194,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="palette.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="recordtest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
