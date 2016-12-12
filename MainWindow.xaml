@@ -33,6 +33,9 @@
                 <MenuItem Header="缩小(_O)" x:Name="tool_min_zoom" Click="tool_min_zoom_Click" />
                 <MenuItem Header="原始大小(_V)" x:Name="tool_yuanshi_zoom" InputGestureText=" Ctrl+0" Click="tool_yuanshi_zoom_Click" />
             </MenuItem>
+            <MenuItem Header="视频">
+                <MenuItem Header="播放视频" x:Name="play" Click="play_Click"></MenuItem>
+            </MenuItem>
             <MenuItem Header="工具(_T)">
                 <MenuItem Header="测温工具(_D)">
                     <MenuItem Header="点(_P)" x:Name="toolpoint" Click="MenuItem_Click" IsChecked="False" />

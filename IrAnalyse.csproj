@@ -103,6 +103,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AVCodec.cs" />
+    <Compile Include="AVFormat.cs" />
+    <Compile Include="AVUtil.cs" />
     <Compile Include="C1RichTextBoxPaginator.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="palette.xaml.cs">
@@ -175,9 +178,13 @@
     <Compile Include="sub_temp.xaml.cs">
       <DependentUpon>sub_temp.xaml</DependentUpon>
     </Compile>
+    <Compile Include="sub_USB_Video.xaml.cs">
+      <DependentUpon>sub_USB_Video.xaml</DependentUpon>
+    </Compile>
     <Compile Include="sub_workspace.xaml.cs">
       <DependentUpon>sub_workspace.xaml</DependentUpon>
     </Compile>
+    <Compile Include="usb_video_device.cs" />
     <Compile Include="workspace.xaml.cs">
       <DependentUpon>workspace.xaml</DependentUpon>
     </Compile>
@@ -282,6 +289,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="sub_temp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="sub_USB_Video.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

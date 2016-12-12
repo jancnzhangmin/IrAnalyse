@@ -4760,6 +4760,26 @@ namespace IrAnalyse
             workspace.create_img();
         }
 
+        private void play_Click(object sender, RoutedEventArgs e)
+        {
+            sub_USB_Video newusb = new sub_USB_Video();
+            //PublicClass.report_type = "video";
+            //PublicClass.ctrl_name++;
+            newusb.Name = "video";
+            //newworkspace.LoadIrInformation += new RoutedPropertyChangedEventHandler<object>(newworkspace_LoadIrInformation);
+            //newworkspace.WorkMouseWheel += new RoutedPropertyChangedEventHandler<object>(newworkspace_WorkMouseWheel);
+            //newworkspace.WorkMouseUp += new RoutedPropertyChangedEventHandler<object>(newworkspace_WorkMouseUp);
+            //newworkspace.filename = openFileDialog.FileName;
+            //newworkspace.cur_file_name = openFileDialog.SafeFileName;
+            LayoutDocument newaaa = new LayoutDocument();
+            newaaa.Content = newusb;
+            newaaa.Title = "视频";
+            newaaa.IsSelected = true;
+            //newaaa.Closing += new EventHandler<System.ComponentModel.CancelEventArgs>(newaaa_Closing);
+            newaaa.CanFloat = false;
+            mainpanel.Children.Add(newaaa);
+        }
+
 
 
  
